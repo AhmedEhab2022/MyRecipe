@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MyRecipe is a web app that helps you to find your recipe by name and ingridians"
+    />
+    <meta
+      name="keywords"
+      content="recipe, food, breakfast, lunch, dinner, healthy, tasty, delicious"
+    />
+    <title>MyRecipe</title>
+    <link rel="stylesheet" href="Styles/search.css" />
+    <link rel="icon" href="Images/icon.png" />
+  </head>
+
+  <body>
+    <header>
+      <img class="logo" src="Images/logo.png" alt="logo" />
+      <h2>MyRecipe</h2>
+    </header>
+    <div class="description">
+      <p>Welcome to MyRecipe App</p>
+      <p>Find your recipe by name or ingredients</p>
+      <p>
+        If you want to search by ingredients
+        <strong> enter them separated by ',' </strong>
+      </p>
+    </div>
+    <div>
+      <input
+        type="text"
+        class="search"
+        name="search"
+        placeholder="Search..."
+        autofocus
+      />
+      <button>Search</button>
+      <div class="recipe-type">
+        <input class="breakfast" type="checkbox" name="breakfast" />
+        <label for="breakfast">Breakfast</label>
+        <input class="lunch" type="checkbox" name="lunch" />
+        <label for="lunch">Lunch</label>
+        <input class="dinner" type="checkbox" name="dinner" />
+        <label for="dinner">Dinner</label>
+      </div>
+    </div>
+  </body>
+
+  <footer>
+    <p>MyRecipe &copy; 2024</p>
+  </footer>
+</html>
