@@ -1,3 +1,5 @@
+
+
 .logo {
   width: 23px;
 }
@@ -18,13 +20,18 @@ h2 {
 
 .description,
 .recipe-type {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   color: #000000;
+}
+
+.search-container,
+.description {
+  text-align: center;
+  margin: 10px 0;
 }
 
 body {
   background-color: #ffffff;
-  text-align: center;
   font-style: italic;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
@@ -63,13 +70,47 @@ input[type="text"]:focus {
   border: 3px solid #000000;
 }
 
+.recipe-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.recipes {
+  margin-left: 10%;
+}
+
+.recipe-img {
+  width: 100%;
+  display: inline;
+  object-fit: cover;
+}
+
+.recipe-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 15%;
+  margin-bottom: 30px;
+  margin-right: 50px;
+  text-align: center;
+  display: inline-block;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+
 footer {
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
   background-color: #000000;
-  color: white;
+  color: #ffffff;
   text-align: center;
-  padding: 10px 0;
+  padding: 1px 0;
 }

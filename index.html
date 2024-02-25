@@ -26,30 +26,57 @@
       <p>Find your recipe by name or ingredients</p>
       <p>
         If you want to search by ingredients
-        <strong> enter them separated by ',' </strong>
+        <strong> enter them separated by ',' and meal types not works </strong>
       </p>
     </div>
-    <div>
+    <div class="search-container">
       <input
         type="text"
-        class="search"
-        name="search"
+        class="search-bar"
+        name="search-bar"
         placeholder="Search..."
         autofocus
       />
-      <button>Search</button>
+      <button type="submit" class="search-btn">Search</button>
       <div class="recipe-type">
-        <input class="breakfast" type="checkbox" name="breakfast" />
+        <input
+          id="breakfast"
+          class="meal-type"
+          type="checkbox"
+          name="breakfast"
+          value="breakfast"
+        />
         <label for="breakfast">Breakfast</label>
-        <input class="lunch" type="checkbox" name="lunch" />
+        <input
+          id="lunch"
+          class="meal-type"
+          type="checkbox"
+          name="lunch"
+          value="lunch"
+        />
         <label for="lunch">Lunch</label>
-        <input class="dinner" type="checkbox" name="dinner" />
+        <input
+          id="dinner"
+          class="meal-type"
+          type="checkbox"
+          name="dinner"
+          value="dinner"
+        />
         <label for="dinner">Dinner</label>
       </div>
+    </div>
+    <h3 class="recipe-header">Result:</h3>
+    <div id="recipes-search" class="recipes">
+    </div>
+    <br />
+    <br />
+    <h3 class="recipe-header">Some recipes:</h3>
+    <div id="recipes-random" class="recipes">
     </div>
   </body>
 
   <footer>
     <p>MyRecipe &copy; 2024</p>
   </footer>
+  <script src="Scripts/search.js"></script>
 </html>
