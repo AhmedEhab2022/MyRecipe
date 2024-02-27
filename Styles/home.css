@@ -1,0 +1,136 @@
+.logo {
+  width: 23px;
+}
+
+header {
+  background-color: #000000;
+  text-align: center;
+  padding: 20px 10px;
+  color: #ffffff;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+  display: inline;
+  color: #ffffff;
+}
+
+.description,
+.recipe-type {
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+.search-section,
+.description {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.search-container {
+  margin-left: 25px;
+}
+
+body {
+  background-color: #ffffff;
+  font-style: italic;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+button {
+  background-color: #000000;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+}
+
+button:hover {
+  background-color: lightgray;
+  color: #000000;
+}
+
+.recipe-type {
+  margin-left: -30px;
+}
+
+input[type="text"] {
+  width: 20%;
+  padding: 5px 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #000000;
+  border-radius: 50px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border: 3px solid #000000;
+}
+
+.recipe-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.no-recipes {
+  text-align: center;
+  margin-left: -130px;
+  margin-top: 50px;
+}
+
+.recipes {
+  margin-left: 8%;
+}
+
+.recipe-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  overflow: hidden;
+  max-height: 300px;
+}
+
+.recipe-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 20%;
+  height: 20%;
+  margin-bottom: 30px;
+  margin-right: 50px;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+.recipe-name {
+  font-size: 15px;
+  margin: 10px 0;
+  /* white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 0;
+}
