@@ -1,11 +1,15 @@
 const apiKey = "a80afe252c0446159d837cabb170550f";
-const searchBar = document.querySelector(".search-bar");
-const searchButton = document.querySelector(".search-btn");
-const apiUrl = "https://api.spoonacular.com/recipes/";
+const searchBar = document.querySelector('.search-bar');
+const searchButton = document.querySelector('.search-btn');
+const apiUrl = 'https://api.spoonacular.com/recipes/';
+
+let randRecipes = [];
+let searchRecipes = [];
+let searchValue = "";
 
 function getCheckedTypes() {
   const checkedTypes = [];
-  const checkboxes = document.querySelectorAll(".meal-type");
+  const checkboxes = document.querySelectorAll('.meal-type');
   checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {
       checkedTypes.push(checkbox.value);
@@ -15,14 +19,14 @@ function getCheckedTypes() {
 }
 
 function isNameOrIngredient(searchValue) {
-  if (searchValue === "") {
-    return "name";
+  if (searchValue === '') {
+    return 'name';
   }
-  if (searchValue !== "") {
-    if (searchValue.split(",").length > 1) {
-      return "ingredient";
+  if (searchValue !== '') {
+    if (searchValue.split(',').length > 1) {
+      return 'ingredient';
     } else {
-      return "name";
+      return 'name';
     }
   }
 }
@@ -31,47 +35,50 @@ function getRecipes(number, isRandom) {
   let url, recipeContainer, checkedTypes, recipes;
   if (isRandom) {
     url = `${apiUrl}random?number=${number}&apiKey=${apiKey}`;
-    recipeContainer = document.querySelector("#recipes-random");
+    recipeContainer = document.querySelector('#recipes-random');
   } else {
+    if (searchBar.value === searchValue) {
+      return;
+    }
+    searchValue = searchBar.value;
     checkedTypes = getCheckedTypes();
-    if (isNameOrIngredient(searchBar.value) === "name") {
-      url = `${apiUrl}complexSearch?number=${number}&apiKey=${apiKey}&query=${
-        searchBar.value
-      }&type=${checkedTypes.join(",")}`;
+    if (isNameOrIngredient(searchValue) === 'name') {
+      url = `${apiUrl}complexSearch?number=${number}&apiKey=${apiKey}&query=${searchValue}&type=${checkedTypes.join(
+        ","
+      )}&addRecipeInformation=true`;
+    } else {
+      url = `${apiUrl}complexSearch?number=${number}&apiKey=${apiKey}&type=${checkedTypes.join(
+        ","
+      )}&addRecipeInformation=true&includeIngredients=${searchValue}`;
     }
-    if (isNameOrIngredient(searchBar.value) === "ingredient") {
-      url = `${apiUrl}findByIngredients?apiKey=${apiKey}
-              &ingredients=${searchBar.value}&number=${number}`;
-    }
-    recipeContainer = document.querySelector("#recipes-search");
+    recipeContainer = document.querySelector('#recipes-search');
   }
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
       if (isRandom) {
         recipes = data.recipes;
-      } else if (isNameOrIngredient(searchBar.value) === "name") {
-        recipes = data.results;
+        randRecipes = recipes;
       } else {
-        recipes = data;
+        recipes = data.results;
+        searchRecipes = recipes;
       }
-      recipeContainer.innerHTML = "";
+      recipeContainer.innerHTML = '';
       if (!recipes || recipes.length === 0) {
         recipeContainer.innerHTML =
           '<h4 class="no-recipes">No recipes found</h4>';
       } else {
-        recipes.forEach((recipe, i) => {
-          const recipeCard = createRecipeCard(recipe, i);
+        recipes.forEach((recipe) => {
+          const recipeCard = createRecipeCard(recipe);
           recipeContainer.appendChild(recipeCard);
-          return recipes;
         });
       }
     });
 }
 
 function createRecipeCard(recipe) {
-  const recipeCard = document.createElement("div");
-  recipeCard.classList.add("recipe-card");
+  const recipeCard = document.createElement('div');
+  recipeCard.classList.add('recipe-card');
   recipeCard.innerHTML = `
 		<img class="recipe-img" src="${recipe.image}" alt="${recipe.title}" />
 		<h4 class="recipe-name">${recipe.title}</h4>
@@ -82,7 +89,12 @@ function createRecipeCard(recipe) {
   return recipeCard;
 }
 
-let randRecipes = getRecipes(4, true);
-searchButton.addEventListener("click", () => {
-  let resultsRecipes = getRecipes(8, false);
+getRecipes(4, true);
+searchButton.addEventListener('click', () => {
+  getRecipes(8, false);
+});
+searchBar.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') {
+    getRecipes(8, false);
+  }
 });
