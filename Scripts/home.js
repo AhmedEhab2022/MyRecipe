@@ -1,11 +1,11 @@
-const apiKey = "a80afe252c0446159d837cabb170550f";
+const apiKey = 'a80afe252c0446159d837cabb170550f';
 const searchBar = document.querySelector('.search-bar');
 const searchButton = document.querySelector('.search-btn');
 const apiUrl = 'https://api.spoonacular.com/recipes/';
 
 let randRecipes = [];
 let searchRecipes = [];
-let searchValue = "";
+let searchValue = '';
 
 function getCheckedTypes() {
   const checkedTypes = [];
@@ -42,14 +42,17 @@ function getRecipes(number, isRandom) {
     }
     searchValue = searchBar.value;
     checkedTypes = getCheckedTypes();
+		const number = `&number=${number}`;
+		const apikey = `&apiKey=${apiKey}`;
+		const addrecipeInfo = `&addRecipeInformation=true`;
     if (isNameOrIngredient(searchValue) === 'name') {
-      url = `${apiUrl}complexSearch?number=${number}&apiKey=${apiKey}&query=${searchValue}&type=${checkedTypes.join(
-        ","
-      )}&addRecipeInformation=true`;
+      url = `${apiUrl}complexSearch?query=${searchValue}`;
     } else {
-      url = `${apiUrl}complexSearch?number=${number}&apiKey=${apiKey}&type=${checkedTypes.join(
-        ","
-      )}&addRecipeInformation=true&includeIngredients=${searchValue}`;
+      url = `${apiUrl}complexSearch?includeIngredients=${searchValue}`;
+    }
+		url += number + apikey + addrecipeInfo;
+    if (checkedTypes.length > 0) {
+      url += `&type=${checkedTypes.join(',')}`;
     }
     recipeContainer = document.querySelector('#recipes-search');
   }
