@@ -42,7 +42,7 @@ function getRecipes(number, isRandom) {
     }
     searchValue = searchBar.value;
     checkedTypes = getCheckedTypes();
-    const number = `&number=${number}`;
+    const numberAttr = `&number=${number}`;
     const apikey = `&apiKey=${apiKey}`;
     const addrecipeInfo = `&addRecipeInformation=true`;
     if (isNameOrIngredient(searchValue) === "name") {
@@ -50,7 +50,7 @@ function getRecipes(number, isRandom) {
     } else {
       url = `${apiUrl}complexSearch?includeIngredients=${searchValue}`;
     }
-    url += number + apikey + addrecipeInfo;
+    url += numberAttr + apikey + addrecipeInfo;
     if (checkedTypes.length > 0) {
       url += `&type=${checkedTypes.join(",")}`;
     }
@@ -85,7 +85,7 @@ function createRecipeCard(recipe) {
   recipeCard.innerHTML = `
 		<img class="recipe-img" src="${recipe.image}" alt="${recipe.title}" />
 		<h4 class="recipe-name">${recipe.title}</h4>
-		<a href="recipe.html" target="_blank">
+		<a href="../recipe.html" target="_blank">
 			<button type="submit" id="${recipe.id}">View</button>
 		</a>
 	`;
