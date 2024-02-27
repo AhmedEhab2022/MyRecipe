@@ -82,7 +82,7 @@ function createRecipeCard(recipe) {
   return recipeCard;
 }
 
-let randRecipes = getRecipes(1, true);
+let randRecipes = getRecipes(4, true);
 searchButton.addEventListener("click", () => {
-  let resultsRecipes = getRecipes(1, false);
+  let resultsRecipes = getRecipes(8, false);
 });
