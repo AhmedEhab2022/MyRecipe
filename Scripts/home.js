@@ -2,20 +2,25 @@ const apiKey = "a80afe252c0446159d837cabb170550f";
 const searchBar = document.querySelector(".search-bar");
 const searchButton = document.querySelector(".search-btn");
 const apiUrl = "https://api.spoonacular.com/recipes/";
+const apikey = `&apiKey=${apiKey}`;
+const addrecipeInfo = `&addRecipeInformation=true`;
+const checkboxes = document.querySelectorAll(".meal-type");
 
 let randRecipes = [];
 let searchRecipes = [];
-let searchValue = "";
+let checkedTypes = new Set();
+let searchValues = new Set();
+let searchValue = null;
+let recipeId, viewButton;
 
 function getCheckedTypes() {
-  const checkedTypes = [];
-  const checkboxes = document.querySelectorAll(".meal-type");
+  let mealtypes = new Set();
   checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {
-      checkedTypes.push(checkbox.value);
+      mealtypes.add(checkbox.value);
     }
   });
-  return checkedTypes;
+  return mealtypes;
 }
 
 function isNameOrIngredient(searchValue) {
@@ -31,20 +36,54 @@ function isNameOrIngredient(searchValue) {
   }
 }
 
+function displayRecipes(recipes, recipeContainer) {
+  if (!recipes || !recipeContainer) {
+    return;
+  }
+  recipeContainer.innerHTML = "";
+  recipes.forEach((recipe) => {
+    const recipeCard = createRecipeCard(recipe);
+    recipeContainer.appendChild(recipeCard);
+  });
+  viewButton = document.querySelectorAll(".view");
+  viewButton.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      recipeId = e.target.id;
+      localStorage.storedRecipeId = recipeId;
+    });
+  });
+}
+
+function notFound(recipeContainer) {
+  recipeContainer.innerHTML = '<h4 class="no-recipes">No recipes found</h4>';
+  localStorage.storedSearchRecipes = JSON.stringify([]);
+}
+
+function storeSearchValue(value) {
+  if (searchValues.has(value)) {
+    searchValues.delete(value);
+  }
+  searchValues.add(value);
+  localStorage.searchValues = JSON.stringify(Array.from(searchValues));
+}
+
 function getRecipes(number, isRandom) {
-  let url, recipeContainer, checkedTypes, recipes;
+  let url, recipeContainer, recipes;
   if (isRandom) {
     url = `${apiUrl}random?number=${number}&apiKey=${apiKey}`;
     recipeContainer = document.querySelector("#recipes-random");
   } else {
-    if (searchBar.value === searchValue) {
+    if (
+      (searchBar.value === searchValue && checkedTypes === getCheckedTypes()) ||
+      searchBar.value === ""
+    ) {
       return;
     }
+    storeSearchValue(searchBar.value);
     searchValue = searchBar.value;
     checkedTypes = getCheckedTypes();
+    localStorage.storedCheckedTypes = JSON.stringify(Array.from(checkedTypes));
     const numberAttr = `&number=${number}`;
-    const apikey = `&apiKey=${apiKey}`;
-    const addrecipeInfo = `&addRecipeInformation=true`;
     if (isNameOrIngredient(searchValue) === "name") {
       url = `${apiUrl}complexSearch?query=${searchValue}`;
     } else {
@@ -66,15 +105,15 @@ function getRecipes(number, isRandom) {
         recipes = data.results;
         searchRecipes = recipes;
       }
-      recipeContainer.innerHTML = "";
       if (!recipes || recipes.length === 0) {
-        recipeContainer.innerHTML =
-          '<h4 class="no-recipes">No recipes found</h4>';
+        notFound(recipeContainer);
+        return;
+      }
+      displayRecipes(recipes, recipeContainer);
+      if (isRandom) {
+        localStorage.storedRandomRecipes = JSON.stringify(randRecipes);
       } else {
-        recipes.forEach((recipe) => {
-          const recipeCard = createRecipeCard(recipe);
-          recipeContainer.appendChild(recipeCard);
-        });
+        localStorage.storedSearchRecipes = JSON.stringify(searchRecipes);
       }
     });
 }
@@ -85,19 +124,66 @@ function createRecipeCard(recipe) {
   recipeCard.innerHTML = `
 		<img class="recipe-img" src="${recipe.image}" alt="${recipe.title}" />
 		<h4 class="recipe-name">${recipe.title}</h4>
-		<a href="../recipe.html" target="_blank">
-			<button type="submit" id="${recipe.id}">View</button>
+		<a href="../recipe.html">
+			<button type="submit" class="view" id="${recipe.id}">View</button>
 		</a>
 	`;
   return recipeCard;
 }
 
-getRecipes(4, true);
-searchButton.addEventListener("click", () => {
-  getRecipes(8, false);
-});
-searchBar.addEventListener("keyup", (e) => {
-  if (e.key === "Enter") {
+if (searchButton) {
+  searchButton.addEventListener("click", () => {
     getRecipes(8, false);
-  }
+  });
+}
+if (searchBar) {
+  searchBar.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      getRecipes(8, false);
+    }
+  });
+}
+
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", () => {
+    if (checkedTypes.has(checkbox.value)) {
+      checkedTypes.delete(checkbox.value);
+    } else {
+      checkedTypes.add(checkbox.value);
+    }
+    localStorage.storedCheckedTypes = JSON.stringify(Array.from(checkedTypes));
+  });
 });
+
+searchBar.addEventListener("blur", () => {
+  storeSearchValue(searchBar.value);
+});
+
+window.onload = () => {
+  if (searchBar.value === "" && localStorage.searchValues) {
+    searchBar.value = JSON.parse(localStorage.searchValues).pop();
+  }
+  if (localStorage.storedCheckedTypes) {
+    checkedTypes = JSON.parse(localStorage.storedCheckedTypes);
+    const checkboxes = document.querySelectorAll(".meal-type");
+    checkboxes.forEach((checkbox) => {
+      if (checkedTypes.includes(checkbox.value)) {
+        checkbox.checked = true;
+      }
+    });
+  }
+  if (localStorage.storedSearchRecipes === "[]" && localStorage.searchValues) {
+    notFound(document.querySelector("#recipes-search"));
+  } else if (localStorage.storedSearchRecipes) {
+    searchRecipes = JSON.parse(localStorage.storedSearchRecipes);
+    displayRecipes(searchRecipes, document.querySelector("#recipes-search"));
+  }
+  if (localStorage.storedRandomRecipes) {
+    randRecipes = JSON.parse(localStorage.storedRandomRecipes);
+    displayRecipes(randRecipes, document.querySelector("#recipes-random"));
+  } else {
+    getRecipes(4, true);
+  }
+};
+
+//getRecipes(4, true);

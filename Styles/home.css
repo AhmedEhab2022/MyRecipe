@@ -58,7 +58,7 @@ button:hover {
   margin-left: -30px;
 }
 
-input[type="text"] {
+input[type="search"] {
   width: 20%;
   padding: 5px 10px;
   margin: 8px 0;
@@ -79,7 +79,7 @@ input[type="text"]:focus {
 
 .no-recipes {
   text-align: center;
-  margin-left: -130px;
+  margin-left: -120px;
   margin-top: 50px;
 }
 
@@ -119,9 +119,9 @@ input[type="text"]:focus {
 .recipe-name {
   font-size: 15px;
   margin: 10px 0;
-  /* white-space: wrap;
+  white-space: wrap;
   overflow: hidden;
-  text-overflow: ellipsis; */
+  text-overflow: ellipsis;
 }
 
 footer {
