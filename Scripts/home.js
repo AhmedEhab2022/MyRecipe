@@ -122,12 +122,12 @@ function createRecipeCard(recipe) {
   const recipeCard = document.createElement("div");
   recipeCard.classList.add("recipe-card");
   recipeCard.innerHTML = `
-		<img class="recipe-img" src="${recipe.image}" alt="${recipe.title}" />
-		<h4 class="recipe-name">${recipe.title}</h4>
-		<a href="recipe.html">
-			<button type="submit" class="view" id="${recipe.id}">View</button>
-		</a>
-	`;
+    <img class="recipe-img" src="${recipe.image}" alt="${recipe.title}" />
+    <h4 class="recipe-name">${recipe.title}</h4>
+    <a href="../recipe.html">
+    <button type="submit" class="view" id="${recipe.id}">View</button>
+    </a>
+    `;
   return recipeCard;
 }
 
@@ -186,4 +186,4 @@ window.onload = () => {
   }
 };
 
-//getRecipes(4, true);
+getRecipes(4, true);
