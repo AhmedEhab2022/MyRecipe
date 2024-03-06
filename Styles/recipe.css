@@ -5,7 +5,7 @@ body {
 }
 
 .recipe {
-  margin: 50px;
+  margin: auto;
 }
 
 .recipe-head {
@@ -21,7 +21,7 @@ h2 {
 }
 
 .recipe-description {
-  margin-left: 3cm;
+  margin-left: 10%;
 }
 
 li {
@@ -30,6 +30,7 @@ li {
 
 .ingredients,
 .equipments,
-.instructions {
+.instructions,
+.summary {
   margin-bottom: 3em;
 }

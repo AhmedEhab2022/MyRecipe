@@ -29,7 +29,7 @@ h2 {
 }
 
 .search-container {
-  margin-left: 25px;
+  margin-left: 1%; /* Use relative units for margin */
 }
 
 body {
@@ -55,11 +55,12 @@ button:hover {
 }
 
 .recipe-type {
-  margin-left: -30px;
+  min-width: 30%;
+  margin-left: -3%;
 }
 
 input[type="search"] {
-  width: 20%;
+  min-width: 30%;
   padding: 5px 10px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -67,7 +68,7 @@ input[type="search"] {
   border-radius: 50px;
 }
 
-input[type="text"]:focus {
+input[type="search"]:focus {
   outline: none;
   border: 3px solid #000000;
 }
@@ -79,8 +80,9 @@ input[type="text"]:focus {
 
 .no-recipes {
   text-align: center;
-  margin-left: -120px;
+  /* margin-left: -120; */
   margin-top: 50px;
+  margin-left: -9%;
 }
 
 .recipes {
@@ -121,6 +123,7 @@ input[type="text"]:focus {
   margin: 10px 0;
   white-space: wrap;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
@@ -133,4 +136,11 @@ footer {
   color: #ffffff;
   text-align: center;
   padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .recipe-card {
+    width: 90%;
+    margin-right: 20px;
+  }
 }

@@ -10,18 +10,9 @@ let randRecipes = [];
 let searchRecipes = [];
 let checkedTypes = new Set();
 let searchValues = new Set();
+let temp = new Set();
 let searchValue = null;
 let recipeId, viewButton;
-
-function getCheckedTypes() {
-  let mealtypes = new Set();
-  checkboxes.forEach((checkbox) => {
-    if (checkbox.checked) {
-      mealtypes.add(checkbox.value);
-    }
-  });
-  return mealtypes;
-}
 
 function isNameOrIngredient(searchValue) {
   if (searchValue === "") {
@@ -67,6 +58,18 @@ function storeSearchValue(value) {
   localStorage.searchValues = JSON.stringify(Array.from(searchValues));
 }
 
+function areSetsEqual(setA, setB) {
+  if (setA.size !== setB.size) {
+    return false;
+  }
+  for (let elem of setA) {
+    if (!setB.has(elem)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function getRecipes(number, isRandom) {
   let url, recipeContainer, recipes;
   if (isRandom) {
@@ -74,14 +77,14 @@ function getRecipes(number, isRandom) {
     recipeContainer = document.querySelector("#recipes-random");
   } else {
     if (
-      (searchBar.value === searchValue && checkedTypes === getCheckedTypes()) ||
+      (searchBar.value === searchValue && areSetsEqual(checkedTypes, temp)) ||
       searchBar.value === ""
     ) {
       return;
     }
     storeSearchValue(searchBar.value);
     searchValue = searchBar.value;
-    checkedTypes = getCheckedTypes();
+    temp = new Set(JSON.parse(localStorage.storedCheckedTypes));
     localStorage.storedCheckedTypes = JSON.stringify(Array.from(checkedTypes));
     const numberAttr = `&number=${number}`;
     if (isNameOrIngredient(searchValue) === "name") {
@@ -90,8 +93,8 @@ function getRecipes(number, isRandom) {
       url = `${apiUrl}complexSearch?includeIngredients=${searchValue}`;
     }
     url += numberAttr + apikey + addrecipeInfo;
-    if (checkedTypes.length > 0) {
-      url += `&type=${checkedTypes.join(",")}`;
+    if (checkedTypes.size > 0) {
+      url += `&type=${Array.from(checkedTypes).join(",")}`;
     }
     recipeContainer = document.querySelector("#recipes-search");
   }
@@ -124,7 +127,7 @@ function createRecipeCard(recipe) {
   recipeCard.innerHTML = `
     <img class="recipe-img" src="${recipe.image}" alt="${recipe.title}" />
     <h4 class="recipe-name">${recipe.title}</h4>
-    <a href="/MyRecipe/recipe.html">
+    <a href="../recipe.html">
       <button type="submit" class="view" id="${recipe.id}">View</button>
     </a>
     `;
@@ -164,10 +167,11 @@ window.onload = () => {
     searchBar.value = JSON.parse(localStorage.searchValues).pop();
   }
   if (localStorage.storedCheckedTypes) {
-    checkedTypes = JSON.parse(localStorage.storedCheckedTypes);
+    checkedTypes = new Set(JSON.parse(localStorage.storedCheckedTypes));
+    temp = new Set(JSON.parse(localStorage.storedCheckedTypes));
     const checkboxes = document.querySelectorAll(".meal-type");
     checkboxes.forEach((checkbox) => {
-      if (checkedTypes.includes(checkbox.value)) {
+      if (checkedTypes.has(checkbox.value)) {
         checkbox.checked = true;
       }
     });
@@ -186,4 +190,4 @@ window.onload = () => {
   }
 };
 
-getRecipes(4, true);
+//getRecipes(4, true);

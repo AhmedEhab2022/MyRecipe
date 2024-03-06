@@ -10,7 +10,7 @@ let randRecipes = [];
 let searchRecipes = [];
 let recipeId = JSON.parse(localStorage.storedRecipeId);
 let recipe;
-let ingredients = new Set();
+let ingredients = [];
 
 function findRecipe(recipeArray) {
   for (let i = 0; i < recipeArray.length; ++i) {
@@ -28,7 +28,7 @@ function getIngredients() {
     .then((response) => response.json())
     .then((data) => {
       for (let i = 0; i < data[0].extendedIngredients.length; ++i) {
-        ingredients.add(data[0].extendedIngredients[i].original);
+        ingredients.push(data[0].extendedIngredients[i].original);
       }
       displayRecipeInfo();
     });
@@ -57,6 +57,7 @@ function displayRecipeInfo() {
     equipmentLi.textContent = equipment;
     recipeEquipments.appendChild(equipmentLi);
   });
+  document.querySelector(".summary").innerHTML = recipe.summary;
 }
 
 if (localStorage.storedRandomRecipes) {
