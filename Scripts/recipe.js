@@ -65,6 +65,25 @@ function displayRecipeInfo() {
     equipmentLi.textContent = equipment;
     recipeEquipments.appendChild(equipmentLi);
   });
+  document.querySelector(
+    ".time"
+  ).innerHTML = `Ready in: ${recipe.readyInMinutes} minutes<br/><br/>Servings: ${recipe.servings}`;
+  for (let i = 0; i < recipe.dishTypes.length; ++i) {
+    const dishTypeLi = document.createElement("li");
+    dishTypeLi.textContent = recipe.dishTypes[i];
+    document.querySelector(".dish-types").appendChild(dishTypeLi);
+  }
+  for (let i = 0; i < recipe.cuisines.length; ++i) {
+    const cuisineLi = document.createElement("li");
+    cuisineLi.textContent = recipe.cuisines[i];
+    document.querySelector(".cuisines").appendChild(cuisineLi);
+  }
+  for (let i = 0; i < recipe.diets.length; ++i) {
+    const dietLi = document.createElement("li");
+    dietLi.textContent = recipe.diets[i];
+    document.querySelector(".diets").appendChild(dietLi);
+  }
+  document.querySelector('.health').textContent = `Health Score: ${recipe.healthScore}`;
   document.querySelector(".summary").innerHTML = recipe.summary.replace(
     /<a\b[^>]*>(.*?)<\/a>/g,
     "$1"

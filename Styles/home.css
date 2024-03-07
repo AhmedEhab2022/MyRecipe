@@ -29,7 +29,7 @@ h2 {
 }
 
 .search-container {
-  margin-left: 1%; /* Use relative units for margin */
+  margin-left: 1%;
 }
 
 body {
@@ -80,7 +80,6 @@ input[type="search"]:focus {
 
 .no-recipes {
   text-align: center;
-  /* margin-left: -120; */
   margin-top: 50px;
   margin-left: -9%;
 }

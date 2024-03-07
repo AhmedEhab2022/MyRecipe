@@ -28,9 +28,20 @@ li {
   margin-bottom: 15px;
 }
 
+.time,
+.health,
+.summary {
+  margin-left: 3%;
+}
+
 .ingredients,
 .equipments,
 .instructions,
+.time,
+.cuisines,
+.dish-types,
+.diets,
+.health,
 .summary {
   margin-bottom: 3em;
 }
