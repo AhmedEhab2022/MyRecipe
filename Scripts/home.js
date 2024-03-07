@@ -1,8 +1,7 @@
-const apiKey = "a80afe252c0446159d837cabb170550f";
 const searchBar = document.querySelector(".search-bar");
 const searchButton = document.querySelector(".search-btn");
 const apiUrl = "https://api.spoonacular.com/recipes/";
-const apikey = `&apiKey=${apiKey}`;
+const apikey = `&apiKey=a80afe252c0446159d837cabb170550f`;
 const addrecipeInfo = `&addRecipeInformation=true`;
 const checkboxes = document.querySelectorAll(".meal-type");
 
@@ -58,6 +57,21 @@ function storeSearchValue(value) {
   localStorage.searchValues = JSON.stringify(Array.from(searchValues));
 }
 
+function storeRecipesInfoBulk(RecipesInfoBulk) {
+  localStorage.storedRecipesInfoBulk = JSON.stringify(RecipesInfoBulk);
+}
+
+function getRecipesInfoBulk(recipes) {
+  const ids = recipes.map((recipe) => recipe.id);
+  const url = `${apiUrl}informationBulk?ids=${ids.join(",")}${apikey}`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      storeRecipesInfoBulk(data);
+    });
+}
+
+
 function areSetsEqual(setA, setB) {
   if (setA.size !== setB.size) {
     return false;
@@ -73,7 +87,7 @@ function areSetsEqual(setA, setB) {
 function getRecipes(number, isRandom) {
   let url, recipeContainer, recipes;
   if (isRandom) {
-    url = `${apiUrl}random?number=${number}&apiKey=${apiKey}`;
+    url = `${apiUrl}random?number=${number}${apikey}`;
     recipeContainer = document.querySelector("#recipes-random");
   } else {
     if (
@@ -84,8 +98,10 @@ function getRecipes(number, isRandom) {
     }
     storeSearchValue(searchBar.value);
     searchValue = searchBar.value;
-    temp = new Set(JSON.parse(localStorage.storedCheckedTypes));
-    localStorage.storedCheckedTypes = JSON.stringify(Array.from(checkedTypes));
+    if (localStorage.storedCheckedTypes) {
+      temp = new Set(JSON.parse(localStorage.storedCheckedTypes));
+      localStorage.storedCheckedTypes = JSON.stringify(Array.from(checkedTypes));
+    }
     const numberAttr = `&number=${number}`;
     if (isNameOrIngredient(searchValue) === "name") {
       url = `${apiUrl}complexSearch?query=${searchValue}`;
@@ -117,6 +133,7 @@ function getRecipes(number, isRandom) {
         localStorage.storedRandomRecipes = JSON.stringify(randRecipes);
       } else {
         localStorage.storedSearchRecipes = JSON.stringify(searchRecipes);
+        getRecipesInfoBulk(recipes);
       }
     });
 }

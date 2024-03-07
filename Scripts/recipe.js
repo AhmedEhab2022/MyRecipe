@@ -21,17 +21,24 @@ function findRecipe(recipeArray) {
   return null;
 }
 
-function getIngredients() {
-  const apiKey = "a80afe252c0446159d837cabb170550f";
-  url = `https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}&ids=${recipeId}`;
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      for (let i = 0; i < data[0].extendedIngredients.length; ++i) {
-        ingredients.push(data[0].extendedIngredients[i].original);
+function getStoredExtendedIngredients() {
+  if (recipe.extendedIngredients) {
+    ingredients = recipe.extendedIngredients.map(
+      (ingredient) => ingredient.original
+    );
+  } else if (localStorage.storedRecipesInfoBulk) {
+    const storedRecipesInfoBulk = JSON.parse(
+      localStorage.storedRecipesInfoBulk
+    );
+    storedRecipesInfoBulk.forEach((recipeInfo) => {
+      if (recipeInfo.id === recipeId) {
+        ingredients = recipeInfo.extendedIngredients.map(
+          (ingredient) => ingredient.original
+        );
+        return;
       }
-      displayRecipeInfo();
     });
+  }
 }
 
 function displayRecipeInfo() {
@@ -47,6 +54,7 @@ function displayRecipeInfo() {
       );
     }
   }
+  getStoredExtendedIngredients();
   ingredients.forEach((ingredient) => {
     const ingredientLi = document.createElement("li");
     ingredientLi.textContent = ingredient;
@@ -57,7 +65,10 @@ function displayRecipeInfo() {
     equipmentLi.textContent = equipment;
     recipeEquipments.appendChild(equipmentLi);
   });
-  document.querySelector(".summary").innerHTML = recipe.summary;
+  document.querySelector(".summary").innerHTML = recipe.summary.replace(
+    /<a\b[^>]*>(.*?)<\/a>/g,
+    "$1"
+  );
 }
 
 if (localStorage.storedRandomRecipes) {
@@ -78,4 +89,4 @@ recipeImg.alt = recipe.title;
 recipeDiv.prepend(recipeName);
 recipeDiv.prepend(recipeImg);
 
-getIngredients();
+displayRecipeInfo();
