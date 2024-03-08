@@ -1,8 +1,8 @@
 # MyRecipe
 
-MyRecipe is a web application that help the user to find a recipe by name, ingredients.
-User can also filter the results by check the meal types checkboxes, and has a random recips section.
-User can click on view button to show the ingredients, equipments and instructions.
+MyRecipe is a web application that help the user to find a recipe by name and ingredients.
+User can also filter the results by check the meal types checkboxes, and has a random recips in some recips section.
+User can click on view button to show the recipe information.
 
 The app use [spoonacular API](https://spoonacular.com/food-api) to get the recipes
 
