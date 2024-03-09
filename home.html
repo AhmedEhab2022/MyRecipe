@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MyRecipe is a web app that helps you to find your recipe by name and ingridians"
+    />
+    <meta
+      name="keywords"
+      content="recipe, food, breakfast, lunch, dinner, healthy, tasty, delicious"
+    />
+    <title>MyRecipe</title>
+    <link rel="stylesheet" href="Styles/home.css" />
+    <link rel="icon" href="Images/icon.png" />
+  </head>
+
+  <body>
+    <header>
+      <img class="logo" src="Images/logo.png" alt="logo" />
+      <h2>MyRecipe</h2>
+    </header>
+    <div class="search-section">
+      <div class="search-container">
+        <input
+          type="search"
+          class="search-bar"
+          name="search-bar"
+          placeholder="Search..."
+          autofocus
+        />
+        <button type="submit" class="search-btn">Search</button>
+      </div>
+      <div class="recipe-type">
+        <input
+          id="breakfast"
+          class="meal-type"
+          type="checkbox"
+          name="breakfast"
+          value="breakfast"
+        />
+        <label for="breakfast">Breakfast</label>
+        <input
+          id="lunch"
+          class="meal-type"
+          type="checkbox"
+          name="lunch"
+          value="main course"
+        />
+        <label for="lunch">Main course</label>
+        <input
+          id="dinner"
+          class="meal-type"
+          type="checkbox"
+          name="dinner"
+          value="side dish"
+        />
+        <label for="dinner">Side dish</label>
+      </div>
+    </div>
+    <h3 class="recipe-header">Results:</h3>
+    <div id="recipes-search" class="recipes"></div>
+    <br />
+    <h3 class="recipe-header">Some recipes:</h3>
+    <div id="recipes-random" class="recipes"></div>
+  </body>
+
+  <footer>
+    <p>MyRecipe &copy; 2024</p>
+  </footer>
+  <script src="Scripts/home.js"></script>
+</html>

@@ -71,7 +71,6 @@ function getRecipesInfoBulk(recipes) {
     });
 }
 
-
 function areSetsEqual(setA, setB) {
   if (setA.size !== setB.size) {
     return false;
@@ -100,7 +99,9 @@ function getRecipes(number, isRandom) {
     searchValue = searchBar.value;
     if (localStorage.storedCheckedTypes) {
       temp = new Set(JSON.parse(localStorage.storedCheckedTypes));
-      localStorage.storedCheckedTypes = JSON.stringify(Array.from(checkedTypes));
+      localStorage.storedCheckedTypes = JSON.stringify(
+        Array.from(checkedTypes)
+      );
     }
     const numberAttr = `&number=${number}`;
     if (isNameOrIngredient(searchValue) === "name") {
