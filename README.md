@@ -12,4 +12,4 @@ Deployed Site: [MyRecipe](https://ahmedehab2022.github.io/MyRecipe/)
 
 ![Home Page of MyRecipe showing the search bar and meal type filters](/Screenshots/home.png)
 
-![Detailed recipe page showing ingredients, equipment, and instructions](/Screenshots/recipe.png)
+![Detailed recipe page showing ingredients, equipment, and instructions](/Screenshots/details.png)
