@@ -209,3 +209,6 @@ window.onload = () => {
 };
 
 getRecipes(4, true);
+
+const date = new Date();
+document.querySelector("footer p span").textContent = date.getFullYear();

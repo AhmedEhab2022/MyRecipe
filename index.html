@@ -77,7 +77,11 @@
         Github repo:
         <a href="https://github.com/AhmedEhab2022/MyRecipe">MyRecipe</a>
       </p>
-      <p>MyRecipe &copy; 2024</p>
+      <p>MyRecipe &copy; <span></span></p>
     </section>
   </body>
+  <script>
+    const date = new Date();
+    document.querySelector("section p span").textContent = date.getFullYear();
+  </script>
 </html>
