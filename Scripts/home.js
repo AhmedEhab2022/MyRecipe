@@ -145,7 +145,7 @@ function createRecipeCard(recipe) {
   recipeCard.innerHTML = `
     <img class="recipe-img" src="${recipe.image}" alt="${recipe.title}" />
     <h4 class="recipe-name">${recipe.title}</h4>
-    <a href="/MyRecipe/recipe.html">
+    <a href="recipe.html">
       <button type="submit" class="view" id="${recipe.id}">View</button>
     </a>
     `;
