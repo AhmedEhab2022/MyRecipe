@@ -4,81 +4,74 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MyRecipe is a web app that helps you to find your recipe by name and ingridians"
+    />
+    <meta
+      name="keywords"
+      content="recipe, food, breakfast, lunch, dinner, healthy, tasty, delicious"
+    />
+    <title>MyRecipe</title>
     <link rel="stylesheet" href="Styles/index.css" />
     <link rel="icon" href="Images/icon.png" />
-    <title>MyRecipe</title>
   </head>
+
   <body>
-    <section class="intro">
-      <header>
-        <img class="logo" src="Images/logo.png" alt="logo" />
-        <h2 class="page-header">MyRecipe</h2>
-      </header>
-      <div class="nav-section">
-        <a href="#features">Features</a>
-        <a href="#about">About Us</a>
-      </div>
-      <div class="container">
-        <div class="img-elements">
-          <h1>Find the best recipe for you</h1>
-          <p class="description">
-            Find your recipe by name or ingredients and see details about it.
-          </p>
-          <a href="home.html">
-            <button type="submit">Get Started</button>
-          </a>
+    <div class="wrapper">
+      <div class="content">
+        <header>
+          <img class="logo" src="Images/logo.png" alt="logo" />
+          <h2>MyRecipe</h2>
+        </header>
+        <div class="search-section">
+          <div class="search-container">
+            <input
+              type="search"
+              class="search-bar"
+              name="search-bar"
+              placeholder="Search..."
+              autofocus
+            />
+            <button type="submit" class="search-btn">Search</button>
+          </div>
+          <div class="recipe-type">
+            <input
+              id="breakfast"
+              class="meal-type"
+              type="checkbox"
+              name="breakfast"
+              value="breakfast"
+            />
+            <label for="breakfast">Breakfast</label>
+            <input
+              id="lunch"
+              class="meal-type"
+              type="checkbox"
+              name="lunch"
+              value="main course"
+            />
+            <label for="lunch">Main course</label>
+            <input
+              id="dinner"
+              class="meal-type"
+              type="checkbox"
+              name="dinner"
+              value="side dish"
+            />
+            <label for="dinner">Side dish</label>
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="features" id="features">
-      <h2>Features</h2>
-      <div class="feature">
-        <img src="Screenshots/search1.png" alt="Example of search by name" />
-        <img
-          src="Screenshots/search2.png"
-          alt="Example of search by ingredients"
-        />
-        <h3>Search</h3>
-        <p>
-          You can Search for recipe by enter the name of it or ingredients
-          separated by comma.
-        </p>
-      </div>
-      <div class="feature">
-        <img
-          src="Screenshots/filter.png"
-          alt="Example of filter results by meal types"
-        />
-        <h3>Filter</h3>
-        <p>You can choose meal Types when you search for recipe.</p>
-      </div>
-      <div class="feature">
-        <img
-          src="Screenshots/details.png"
-          alt="Example of some details when click on view button"
-        />
-        <h3>show recipes details</h3>
-        <p>You can click the view button to see the recipe details.</p>
-      </div>
-    </section>
-    <section class="about" id="about">
-      <h2>About Us</h2>
-      <p>
-        The MyRecipe application is inspired by confusion about what to eat
+        <h3 class="recipe-header">Results:</h3>
+        <div id="recipes-search" class="recipes"></div>
         <br />
-        or when you want to make a recipe in a new way or with the ingredients
-        available to you.
-      </p>
-      <p>Developed by Ahmed Ehab</p>
-      <a href="https://github.com/AhmedEhab2022">Github</a>
-      <a href="https://www.linkedin.com/in/ahmed-ehab-210a58264/">LinkedIn</a>
-      <a href="https://twitter.com/AhmedEhab8122">Twitter</a>
-      <p>
-        Github repo:
-        <a href="https://github.com/AhmedEhab2022/MyRecipe">MyRecipe</a>
-      </p>
-      <p>MyRecipe &copy; <span></span></p>
-    </section>
+        <h3 class="recipe-header">Some recipes:</h3>
+        <div id="recipes-random" class="recipes"></div>
+      </div>
+      <footer>
+        <p>MyRecipe &copy; <span></span></p>
+      </footer>
+    </div>
   </body>
   <script src="Scripts/index.js"></script>
 </html>
