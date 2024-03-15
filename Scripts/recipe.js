@@ -1,3 +1,4 @@
+// Select DOM elements
 const recipeImg = document.createElement("img");
 const recipeName = document.createElement("h2");
 const recipeDiv = document.querySelector(".recipe-head");
@@ -6,12 +7,14 @@ const recipeIngredients = document.querySelector(".ingredients");
 const recipeEquipments = document.querySelector(".equipments");
 const recipeInstructions = document.querySelector(".instructions");
 
+// Initialize variables
 let randRecipes = [];
 let searchRecipes = [];
 let recipeId = JSON.parse(localStorage.storedRecipeId);
 let recipe;
 let ingredients = [];
 
+// Find the recipe with the specified ID
 function findRecipe(recipeArray) {
   for (let i = 0; i < recipeArray.length; ++i) {
     if (recipeArray[i].id === recipeId) {
@@ -21,6 +24,7 @@ function findRecipe(recipeArray) {
   return null;
 }
 
+// Get the stored extended ingredients from recipe or bulk storage
 function getStoredExtendedIngredients() {
   if (recipe.extendedIngredients) {
     ingredients = recipe.extendedIngredients.map(
@@ -41,6 +45,7 @@ function getStoredExtendedIngredients() {
   }
 }
 
+// Display recipe information
 function displayRecipeInfo() {
   const uniqueEquipments = new Set();
   for (let i = 0; i < recipe.analyzedInstructions.length; ++i) {
@@ -84,6 +89,7 @@ function displayRecipeInfo() {
     document.querySelector(".diets").appendChild(dietLi);
   }
   document.querySelector('.health').textContent = `Health Score: ${recipe.healthScore}`;
+  // Remove hyperlinks from summary
   document.querySelector(".summary").innerHTML = recipe.summary.replace(
     /<a\b[^>]*>(.*?)<\/a>/g,
     "$1"
@@ -102,6 +108,7 @@ if (recipe === null) {
   recipe = findRecipe(searchRecipes);
 }
 
+// Display the recipe
 recipeName.textContent = recipe.title;
 recipeImg.src = recipe.image;
 recipeImg.alt = recipe.title;
