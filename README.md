@@ -27,7 +27,7 @@ To set up MyRecipe locally, follow these steps:
 3. Install dependencies:
 <pre>
   <code>npm install</code>
-<pre>
+</pre>
 
 4. Start the development server:
 
