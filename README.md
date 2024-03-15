@@ -19,21 +19,21 @@ To set up MyRecipe locally, follow these steps:
     <code>
       git clone https://github.com/AhmedEhab2022/MyRecipe.git
     </code>
-  <pre>
+  </pre>
 
 2. Navigate to the project directory:
   <pre>
     <code>
       cd MyRecipe
     </code>
-  <pre>
+  </pre>
 
 3. Install dependencies:
   <pre>
     <code>
       npm install
     </code>
-  <pre>
+  </pre>
 
 4. Start the development server:
 
