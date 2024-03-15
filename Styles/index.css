@@ -151,6 +151,34 @@ footer {
   flex: 1;
 }
 
+.search-history-container {
+  display: flex;
+  justify-content: center;
+  margin-left: -5%;
+}
+
+.search-history {
+  list-style-type: none;
+  margin-top: 5px;
+  padding: 0;
+  width: 30%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.search-history li {
+  padding: 10px;
+  background-color: #fff;
+  border-bottom: 3px solid #eee;
+}
+
+.search-history li:last-child {
+  border-bottom: none;
+}
+
+.search-history li:hover {
+  background-color: #f0f0f0;
+}
+
 @media (max-width: 768px) {
   .recipe-card {
     width: 90%;

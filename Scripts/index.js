@@ -4,6 +4,7 @@ const apiUrl = "https://api.spoonacular.com/recipes/";
 const apikey = `&apiKey=a80afe252c0446159d837cabb170550f`;
 const addrecipeInfo = `&addRecipeInformation=true`;
 const checkboxes = document.querySelectorAll(".meal-type");
+const history = document.querySelector(".search-history");
 const date = new Date();
 const SEARCH_RECIPES_NUMBER = 8;
 const RAND_RECIPES_NUMBER = 4;
@@ -187,6 +188,34 @@ checkboxes.forEach((checkbox) => {
 
 searchBar.addEventListener("blur", () => {
   storeValue(searchBar.value);
+  setTimeout(() => {    
+    history.style.display = "none";
+  }, 230);
+});
+
+searchBar.addEventListener("focus", () => {
+  if (localStorage.searchValues) {
+    history.style.display = "block";
+    searchValues = new Set(JSON.parse(localStorage.searchValues));
+    history.innerHTML = "";
+    for (let i = searchValues.size - 1; i >= 0; --i) {
+      const value = Array.from(searchValues)[i];
+      if (value === searchBar.value) {
+        continue;
+      }
+      if (i < searchValues.size - 5) {
+        break;
+      }
+      const searchValue = document.createElement("li");
+      searchValue.textContent = value;
+      history.appendChild(searchValue);
+      searchValue.addEventListener("click", () => {
+        searchBar.value = value;
+        storeValue(value);
+        getRecipes(SEARCH_RECIPES_NUMBER, false);
+      });
+    }
+  }
 });
 
 window.onload = () => {
@@ -195,6 +224,7 @@ window.onload = () => {
     localStorage.setItem("hasVisited", "true");
     window.location.href = "landing.html";
   }
+  searchBar.focus();
   if (searchBar.value === "" && localStorage.searchValue) {
     searchBar.value = JSON.parse(localStorage.searchValue);
   }
@@ -225,6 +255,6 @@ window.onload = () => {
   }
 };
 
-getRecipes(RAND_RECIPES_NUMBER, true);
+//getRecipes(RAND_RECIPES_NUMBER, true);
 
 document.querySelector("footer p span").textContent = date.getFullYear();
