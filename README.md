@@ -15,13 +15,19 @@ User can click on view button to show the recipe information.
 To set up MyRecipe locally, follow these steps:
 
 1. Clone the repository:
-    <code>git clone https://github.com/AhmedEhab2022/MyRecipe.git</code>
+<pre>
+  <code>git clone https://github.com/AhmedEhab2022/MyRecipe.git</code>
+</pre>
 
 2. Navigate to the project directory:
-    <code>cd MyRecipe</code>
+<pre>
+  <code>cd MyRecipe</code>
+</pre>
 
 3. Install dependencies:
-    <code>npm install</code>
+<pre>
+  <code>npm install</code>
+<pre>
 
 4. Start the development server:
 
