@@ -224,10 +224,10 @@ window.onload = () => {
     localStorage.setItem("hasVisited", "true");
     window.location.href = "landing.html";
   }
-  searchBar.focus();
   if (searchBar.value === "" && localStorage.searchValue) {
     searchBar.value = JSON.parse(localStorage.searchValue);
   }
+  searchBar.focus();
   if (localStorage.storedCheckedTypes) {
     checkedTypes = new Set(JSON.parse(localStorage.storedCheckedTypes));
     temp = new Set(JSON.parse(localStorage.storedCheckedTypes));
