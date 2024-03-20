@@ -7,7 +7,7 @@ User can click on view button to show the recipe information.
 
 ## links
 - The app use [spoonacular API](https://spoonacular.com/food-api) to get the recipes
-- Deployed Site: [MyRecipe](my-recipe-hazel.vercel.app/)
+- Deployed Site: [MyRecipe](https://my-recipe-hazel.vercel.app/)
 - LinkedIn: [Ahmed Ehab](https://www.linkedin.com/in/ahmed-ehab-210a58264/)
 
 ## Installation
