@@ -88,7 +88,9 @@ function displayRecipeInfo() {
     dietLi.textContent = recipe.diets[i];
     document.querySelector(".diets").appendChild(dietLi);
   }
-  document.querySelector('.health').textContent = `Health Score: ${recipe.healthScore}`;
+  document.querySelector(
+    ".health"
+  ).textContent = `Health Score: ${recipe.healthScore}`;
   // Remove hyperlinks from summary
   document.querySelector(".summary").innerHTML = recipe.summary.replace(
     /<a\b[^>]*>(.*?)<\/a>/g,

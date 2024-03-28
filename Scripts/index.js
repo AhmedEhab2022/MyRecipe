@@ -4,6 +4,7 @@ const searchButton = document.querySelector(".search-btn");
 const apiUrl = "https://api.spoonacular.com/recipes/";
 const apikey = `&apiKey=a80afe252c0446159d837cabb170550f`;
 const addrecipeInfo = `&addRecipeInformation=true`;
+const addrecipeInstructions = `&addRecipeInstructions=true`;
 const checkboxes = document.querySelectorAll(".meal-type");
 const history = document.querySelector(".search-history");
 const date = new Date();
@@ -108,6 +109,22 @@ function areSetsEqual(setA, setB) {
   return true;
 }
 
+// Get analyzed instructions for each random recipe
+function getAnalyzedInstructions() {
+  const promises = randRecipes.map((recipe) => {
+    const url = `${apiUrl}${recipe.id}/analyzedInstructions?${
+      apikey.split("&")[1]
+    }`;
+    return fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        recipe.analyzedInstructions = data;
+      });
+  });
+
+  return Promise.all(promises);
+}
+
 // Fetch recipes from the API, either random or based on search
 function getRecipes(number, isRandom) {
   let url, recipeContainer, recipes;
@@ -139,7 +156,7 @@ function getRecipes(number, isRandom) {
     } else {
       url = `${apiUrl}complexSearch?includeIngredients=${searchValue}`;
     }
-    url += numberAttr + apikey + addrecipeInfo;
+    url += numberAttr + apikey + addrecipeInfo + addrecipeInstructions;
     if (checkedTypes.size > 0) {
       url += `&type=${Array.from(checkedTypes).join(",")}`;
     }
@@ -162,7 +179,9 @@ function getRecipes(number, isRandom) {
       }
       displayRecipes(recipes, recipeContainer);
       if (isRandom) {
-        localStorage.storedRandomRecipes = JSON.stringify(randRecipes);
+        getAnalyzedInstructions().then(() => {
+          localStorage.storedRandomRecipes = JSON.stringify(randRecipes);
+        });
       } else {
         localStorage.storedSearchRecipes = JSON.stringify(searchRecipes);
         getRecipesInfoBulk(recipes);
@@ -215,7 +234,7 @@ checkboxes.forEach((checkbox) => {
 // Store search term on blur and hide search history
 searchBar.addEventListener("blur", () => {
   storeValue(searchBar.value);
-  setTimeout(() => {    
+  setTimeout(() => {
     history.style.display = "none";
   }, 230);
 });
